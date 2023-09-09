@@ -1,0 +1,117 @@
+<h2 class="text-center" style="margin-bottom:2rem; margin-top:2rem">Receptionists</h2>
+                   
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container justify-content-center align-items-center">
+    <%= link_to "Home", receptionists_path, class: "navbar-brand" %>
+    
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+         <div class="user-box  text-white d-inline-block rounded p-2">
+            <p class="user-email m-0 text-primary">Welcome : <%= current_user.email %></p>
+          </div>
+          <li class="nav-item">
+             <%= link_to "Edit ", edit_user_registration_path, class: "nav-link background-v edit btn text-white btn-success nav-link  bg-danger  btn-hover-effect mx-2 " %>
+          </li>
+           <li class="nav-item  ">
+             <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn signout btn-danger text-white nav-link bg-primary  btn-hover-effect mx-2' %>
+           </li>
+        <% else %>
+            <li class="nav-item">
+               <%= link_to 'Sign In', new_user_session_path, class: 'btn text-white  btn-success nav-link btn-hover-effect mr-2' %>
+            </li>
+            <li class="nav-item">
+               <%= link_to 'Sign Up', new_user_registration_path, class: 'btn text-white btn-primary nav-link btn-hover-effect' %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<% if @patient.errors.any? %>
+  <div class="alert alert-danger">
+    <h2><%= pluralize(@patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
+    <ul>
+      <% @patient.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1><%= action_name.capitalize %> Patient</h1>
+
+<%= form_with(model: @patient, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :age %>
+    <%= form.number_field :age, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :gender %>
+    <%= form.select :gender, ['Male', 'Female'], { prompt: 'Select Gender' }, class: 'form-control' %>
+  </div>
+
+    <div class="form-group">
+    <%= form.label :contact_number %>
+    <%= form.number_field :contact_number, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :date_time_of_appointment %>
+    <%= form.datetime_local_field :date_time_of_appointment, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :doctor_id %>
+    <%= form.collection_select :doctor_id, Doctor.all, :id, :name, prompt: 'Select a Doctor', class: 'form-control' %>
+  </div>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', receptionists_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>
+
+
+
+
+<style>
+/* Add other button styling here */
+.navbar .btn-hover-effect {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  
+}
+
+.navbar .btn-hover-effect:hover {
+  background-color:#ff0000 ; /* Change to your desired hover background color */
+  color: black; /* Set the text color to black on hover */
+    width: 8rem;
+}
+
+
+
+.btn-hover-effect {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+
+
+
+
+.signout-hover-effect:hover {
+  background-color: #ff0000; /* Red background color */
+  color: white; /* White text color on hover */
+}
+
+
+
+</style>

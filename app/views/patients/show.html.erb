@@ -1,0 +1,78 @@
+
+<h2 class="text-center" style="margin-bottom:2rem; margin-top:2rem">Receptionists</h2>
+                   
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container justify-content-center align-items-center">
+    <%= link_to "Home", receptionists_path, class: "navbar-brand" %>
+    
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+         <div class="user-box  text-white d-inline-block rounded p-2">
+            <p class="user-email m-0 text-primary">Welcome : <%= current_user.email %></p>
+          </div>
+          <li class="nav-item">
+             <%= link_to "Edit ", edit_user_registration_path, class: "nav-link background-v edit btn text-white btn-success nav-link  bg-danger  btn-hover-effect mx-2 " %>
+          </li>
+           <li class="nav-item  ">
+             <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn signout btn-danger text-white nav-link bg-primary  btn-hover-effect mx-2' %>
+           </li>
+        <% else %>
+            <li class="nav-item">
+               <%= link_to 'Sign In', new_user_session_path, class: 'btn text-white  btn-success nav-link btn-hover-effect mr-2' %>
+            </li>
+            <li class="nav-item">
+               <%= link_to 'Sign Up', new_user_registration_path, class: 'btn text-white btn-primary nav-link btn-hover-effect' %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="card mx-auto mt-4" style="width: 18rem;">
+  <div class="card-body text-center">
+    <h5 class="card-title">Patient Details</h5>
+    <p class="card-text"><strong>Name:</strong> <%= @patient.name %></p>
+    <p class="card-text"><strong>Age:</strong> <%= @patient.age %></p>
+    <p class="card-text"><strong>Gender:</strong> <%= @patient.gender %></p>
+    <p class="card-text"><strong>Contact:</strong> <%= @patient.contact_number %></p>
+    <p class="card-text"><strong>Date/Time:</strong> <%= @patient.date_time_of_appointment %></p>
+    <p class="card-text"><strong>Dr Name:</strong> <%= @dr.name %></p>
+
+    <%= link_to 'Back', receptionists_path, class: 'btn btn-primary' %>
+  </div>
+</div>
+
+
+<style>
+/* Add other button styling here */
+.navbar .btn-hover-effect {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  
+}
+
+.navbar .btn-hover-effect:hover {
+  background-color:#ff0000 ; /* Change to your desired hover background color */
+  color: black; /* Set the text color to black on hover */
+    width: 8rem;
+}
+
+
+
+.btn-hover-effect {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+
+
+
+
+.signout-hover-effect:hover {
+  background-color: #ff0000; /* Red background color */
+  color: white; /* White text color on hover */
+}
+
+
+
+</style>

@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: your_database_name
+  username: postgres
+  password: 1234
+  host: localhost
+  port: 5432 # Default PostgreSQL port

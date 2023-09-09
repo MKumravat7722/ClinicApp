@@ -1,0 +1,98 @@
+<h2 class="text-center" style="margin-bottom:2rem; margin-top:2rem">Receptionists</h2>
+                   
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container justify-content-center align-items-center">
+    <%= link_to "Home", receptionists_path, class: "navbar-brand" %>
+    
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+         <div class="user-box  text-white d-inline-block rounded p-2">
+            <p class="user-email m-0 text-primary">Welcome : <%= current_user.email %></p>
+          </div>
+          <li class="nav-item">
+             <%= link_to "Edit ", edit_user_registration_path, class: "nav-link background-v edit btn text-white btn-success nav-link  bg-danger  btn-hover-effect mx-2 " %>
+          </li>
+           <li class="nav-item  ">
+             <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn signout btn-danger text-white nav-link bg-primary  btn-hover-effect mx-2' %>
+           </li>
+        <% else %>
+            <li class="nav-item">
+               <%= link_to 'Sign In', new_user_session_path, class: 'btn text-white  btn-success nav-link btn-hover-effect mr-2' %>
+            </li>
+            <li class="nav-item">
+               <%= link_to 'Sign Up', new_user_registration_path, class: 'btn text-white btn-primary nav-link btn-hover-effect' %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="justify-center text-center item-center felx">
+<h1>Patients</h1>
+
+<div class="w-80 justify-center text-center item-center felx m-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @patients.each do |patient| %>
+        <tr>
+          <td><%= patient.name %></td>
+          <td><%= patient.age %></td>
+          <td>
+            <div class="btn-group" role="group">
+              <%= link_to 'Show', patient_path(patient), class: 'btn  m-2 btn-info btn-sm' %>
+              <%= link_to 'Edit', edit_patient_path(patient), class: 'btn m-2 btn-success btn-sm' %>
+              <%= button_to 'Delete', delete_patient_patient_path(patient), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm m-2', remote: true %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+
+<%= link_to 'New Patient', new_patient_path, class: 'btn btn-primary' %>
+</div>
+
+
+<style>
+/* Add other button styling here */
+.navbar .btn-hover-effect {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  
+}
+
+.navbar .btn-hover-effect:hover {
+  background-color:#ff0000 ; /* Change to your desired hover background color */
+  color: black; /* Set the text color to black on hover */
+    width: 8rem;
+}
+
+
+
+.btn-hover-effect {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+
+
+
+
+.signout-hover-effect:hover {
+  background-color: #ff0000; /* Red background color */
+  color: white; /* White text color on hover */
+}
+
+
+
+</style>
