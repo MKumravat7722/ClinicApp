@@ -7,7 +7,11 @@ class ReceptionistsController < ApplicationController
       # Your receptionist-specific logic here
       redirect_to doctors_path if current_user.role == 'doctor'
     end
-  
+    def patient_registrations
+    @registrations = Patient.group("DATE(created_at)").count
+
+    render json: @registrations
+  end
     private
   
     def check_receptionist_role

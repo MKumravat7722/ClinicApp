@@ -33,15 +33,46 @@
 <!-- Display the patient registration graph here using LazyHighCharts -->
 <h1>Line Chart</h1>
 
- <% if @patients.nil? %>
-  <h4>No data</h4>
-<% else %>
-  <%= line_chart @patients.group_by_day(:created_at).count %>
-  <%= @patients.group_by_day(:created_at).count %>
-<% end %>
+<%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/chart.js' %>
 
-<div id="line-chart-container"></div>
+<div>
+  <h2>Patient Registrations by Day</h2>
+  <canvas id="registrationChart" width="400" height="200"></canvas>
+</div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('<%= patient_registrations_path %>') // Use Rails path helper for the correct route
+      .then(response => response.json())
+      .then(data => {
+        const labels = Object.keys(data);
+        const registrationCounts = Object.values(data);
+
+        const ctx = document.getElementById('registrationChart').getContext('2d');
+        const registrationChart = new Chart(ctx, {
+          type: 'bar', // Change to 'line' for a line chart
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Patient Registrations',
+              data: registrationCounts,
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      })
+      .catch(error => console.error('Error fetching registration data:', error));
+  });
+</script>
 
 <div class="container mt-4">
   <h2>Patient List</h2>

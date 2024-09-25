@@ -68,11 +68,10 @@
     <%= form.datetime_local_field :date_time_of_appointment, class: 'form-control' %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :doctor_id %>
-    <%= form.collection_select :doctor_id, Doctor.all, :id, :name, prompt: 'Select a Doctor', class: 'form-control' %>
-  </div>
-
+<div class="form-group">
+  <%= form.label :doctor_id %>
+  <%= form.collection_select :doctor_id, User.where(role: 'doctor'), :id, :email, { prompt: 'Select a Doctor' }, { class: 'form-control' } %>
+</div>
   <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class="actions">

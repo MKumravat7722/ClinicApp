@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_09_011550) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_24_125457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,12 +32,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_011550) do
     t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "doctor_id", null: false
     t.bigint "user_id"
     t.string "gender"
     t.string "contact_number"
     t.datetime "date_time_of_appointment"
-    t.index ["doctor_id"], name: "index_patients_on_doctor_id"
     t.index ["user_id"], name: "index_patients_on_user_id"
   end
 
@@ -56,6 +54,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_011550) do
   end
 
   add_foreign_key "doctors", "users"
-  add_foreign_key "patients", "doctors"
   add_foreign_key "patients", "users"
 end

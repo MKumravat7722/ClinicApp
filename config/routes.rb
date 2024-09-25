@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :doctors do
     get 'registrations_chart', on: :member
   end
+  get 'patient_registrations', to: 'receptionists#patient_registrations'
   
   resources :receptionists
  

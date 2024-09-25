@@ -38,7 +38,7 @@
     <p class="card-text"><strong>Gender:</strong> <%= @patient.gender %></p>
     <p class="card-text"><strong>Contact:</strong> <%= @patient.contact_number %></p>
     <p class="card-text"><strong>Date/Time:</strong> <%= @patient.date_time_of_appointment %></p>
-    <p class="card-text"><strong>Dr Name:</strong> <%= @dr.name %></p>
+    <p class="card-text"><strong>Dr Name:</strong> <%= @dr.email%></p>
 
     <%= link_to 'Back', receptionists_path, class: 'btn btn-primary' %>
   </div>

@@ -4,4 +4,7 @@ class User < ApplicationRecord
   has_one :doctor
   has_one :doctor, foreign_key: "user_id" # Assuming the foreign key for the doctor in patients is "user_id"
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+   def serializable_hash(options = {})
+    super(options.merge(except: [:password_digest]))
+  end
 end

@@ -6,19 +6,18 @@ before_action :authenticate_user!
       if current_user.role == 'recipient'
         redirect_to receptionists_path
       else
-        cr = current_user.doctor
+        cr = current_user
         if cr.nil?
           @patients= nil
           return
         else
-          @name = cr.name
+          @name = cr.email
           @patients = cr.patients
-          doctor = current_user.doctor
-          @patients = doctor.patients
         end
       end
 
-  
+
+
           
     end
     

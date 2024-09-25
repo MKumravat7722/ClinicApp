@@ -26,7 +26,7 @@ gem 'devise'
 
 gem "chartkick"
 
-
+gem "byebug"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
