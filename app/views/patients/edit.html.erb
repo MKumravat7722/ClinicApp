@@ -70,7 +70,7 @@
 
   <div class="form-group">
     <%= form.label :doctor_id %>
-    <%= form.collection_select :doctor_id, User.all.where(role: 'doctor'), :id, :name, prompt: 'Select a Doctor', class: 'form-control' %>
+    <%= form.collection_select :doctor_id, User.all.where(role: 'doctor'), :id, :email, prompt: 'Select a Doctor', class: 'form-control' %>
   </div>
 
   <%= form.hidden_field :user_id, value: current_user.id %>

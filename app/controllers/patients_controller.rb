@@ -1,13 +1,13 @@
 class PatientsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_patient, only: [:show, :edit, :update, :destroy]
+  before_action :set_patient, only: %i[show edit update destroy]
 
   def index
     @patients = Patient.all
   end
 
   def patient_registrations
-    @registrations = Patient.group("DATE(created_at)").count
+    @registrations = Patient.group('DATE(created_at)').count
     render json: @registrations
   end
 
@@ -28,8 +28,7 @@ class PatientsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @patient.update(patient_params)
@@ -41,7 +40,7 @@ class PatientsController < ApplicationController
 
   def destroy
     @patient.destroy
-    redirect_to patients_path, notice: 'Patient was successfully destroyed.'
+    redirect_to receptionists_path, notice: 'Patient was successfully destroyed.'
   end
 
   private

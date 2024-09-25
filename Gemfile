@@ -25,6 +25,7 @@ gem 'bootstrap'
 gem 'devise'
 
 gem "chartkick"
+gem 'rubocop'
 
 gem "byebug"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

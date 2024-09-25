@@ -28,9 +28,6 @@
     </div>
   </div>
 </nav>
-
-
-
 <div class="justify-center text-center item-center felx">
 <h1>Patients</h1>
 
@@ -52,7 +49,7 @@
             <div class="btn-group" role="group">
               <%= link_to 'Show', patient_path(patient), class: 'btn  m-2 btn-info btn-sm' %>
               <%= link_to 'Edit', edit_patient_path(patient), class: 'btn m-2 btn-success btn-sm' %>
-              <%= button_to 'Delete', delete_patient_patient_path(patient), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm m-2', remote: true %>
+              <%= button_to 'Delete', patient_path(patient), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm m-2' %>
             </div>
           </td>
         </tr>

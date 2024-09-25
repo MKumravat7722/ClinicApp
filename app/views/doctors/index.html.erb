@@ -42,37 +42,46 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    fetch('<%= patient_registrations_path %>') // Use Rails path helper for the correct route
-      .then(response => response.json())
-      .then(data => {
-        const labels = Object.keys(data);
-        const registrationCounts = Object.values(data);
+  fetch('<%= patient_registrations_path %>') // Use Rails path helper for the correct route
+    .then(response => response.json())
+    .then(data => {
+      // Extract dates and sort them in ascending order
+      const labels = Object.keys(data)
+        .map(dateStr => new Date(dateStr)) // Convert to Date objects
+        .sort((a, b) => a - b)             // Sort dates in ascending order
+        .map(date => date.toISOString().split('T')[0]); // Convert back to YYYY-MM-DD
 
-        const ctx = document.getElementById('registrationChart').getContext('2d');
-        const registrationChart = new Chart(ctx, {
-          type: 'bar', // Change to 'line' for a line chart
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Patient Registrations',
-              data: registrationCounts,
-              backgroundColor: 'rgba(75, 192, 192, 0.2)',
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
+      // Map the sorted labels back to their corresponding registration counts
+      const registrationCounts = labels.map(date => data[date] || 0);
+
+      const ctx = document.getElementById('registrationChart').getContext('2d');
+      const registrationChart = new Chart(ctx, {
+        type: 'bar', // Change to 'line' if needed
+        data: {
+          labels: labels, // Sorted dates
+          datasets: [{
+            label: 'Patient Registrations',
+            data: registrationCounts, // Corresponding registration counts
+            backgroundColor: '#ff3333',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
             }
           }
-        });
-      })
-      .catch(error => console.error('Error fetching registration data:', error));
-  });
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching registration data:', error));
+});
+
 </script>
+
+
 
 <div class="container mt-4">
   <h2>Patient List</h2>
